@@ -1,0 +1,12 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const jwtConfig = {
+  accessSecret: process.env.JWT_ACCESS_SECRET,
+  refreshSecret: process.env.JWT_REFRESH_SECRET,
+  accessExpiry: process.env.JWT_ACCESS_EXPIRY || "15m",
+  refreshExpiry: process.env.JWT_REFRESH_EXPIRY || "7d",
+};
+
+export default jwtConfig;

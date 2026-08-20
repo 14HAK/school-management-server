@@ -7,9 +7,16 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
+    "seed:roles": "node src/database/seed/role-permission.seed.js",
+    "seed:admin": "node src/database/seed/super-admin.seed.js",
+    "seed": "yarn seed:roles && yarn seed:admin",
     "test": "echo \"Tests not configured yet\" && exit 0"
   },
-  "keywords": ["school", "erp", "education"],
+  "keywords": [
+    "school",
+    "erp",
+    "education"
+  ],
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {

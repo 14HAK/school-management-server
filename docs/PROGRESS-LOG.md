@@ -60,10 +60,58 @@ Claude Project's knowledge so future chats pick up exactly where this left off.
 
 ---
 
-## Next Up — Phase 1: Authentication & Authorization
+## Phase 1 — Authentication & RBAC ✅ COMPLETE
 
-Per `28-roadmap.md`: Authentication, RBAC, User Management, Permission System,
-Email Verification, Password Reset, Refresh Token, Session Management.
+**Date:** 2026-08-19
 
-Relevant spec docs to re-read before starting: `04-authentication.md`, `05-rbac.md`,
-`06-user-management.md`, `school_erp_roles_and_dashboards.md`.
+### Backend (`school-erp-backend`)
+- **Models:** `User` (bcrypt hashing, tokenVersion, accountStatus), `Role`, `Permission`
+  (`resource:action` key), `Session` (hashed refresh tokens, device/IP tracking), `OtpRequest`
+  (email verification + password reset, 10-min expiry), `ActivityLog` (all auth actions logged)
+- **Utils:** `token.util.js` (JWT access/refresh generation+verification, token hashing),
+  `otp.util.js` (6-digit OTP generation/hashing/expiry), `cookie.util.js` (HttpOnly/Secure/
+  SameSite cookie helpers)
+- **Middleware:** `authenticate.middleware.js` (cookie/Bearer token → load user → tokenVersion
+  check), `authorize.middleware.js` (`resource:action` permission check, SUPER_ADMIN bypass),
+  `validate.middleware.js` (generic Zod validator)
+- **Auth module** (`src/modules/auth/`): service covers all 10 flows from `04-authentication.md`
+  — register, login, logout, refresh-token, forgot-password, reset-password, change-password,
+  verify-email, resend-otp, me. Controller stays thin, routes match spec exactly.
+- **Seeds:** `role-permission.seed.js` (21 resources × 10 actions, 12 roles incl. Receptionist/
+  Sport Officer), `super-admin.seed.js` (bootstrap first login) — run via `yarn seed`
+- **Verified:** 20 DB-independent unit tests passing (token round-trip, OTP hashing/expiry,
+  Zod password-strength validation, bcrypt hash/compare, ApiError/ApiResponse shapes). Full
+  live-MongoDB integration test was attempted but blocked by sandbox network restrictions
+  (fastdl.mongodb.org unreachable) — **run `yarn seed && yarn dev` locally to verify the live
+  DB flow end-to-end before Phase 2.**
+
+### Frontend (`school-erp-frontend`)
+- **`features/auth/`**: `auth.types.ts` (mirrors backend contract exactly), `auth.api.ts`
+  (typed API functions), `AuthContext.tsx` (session state, login/logout, role→dashboard
+  routing map), `RequireAuth.tsx` (route guard — UX convenience only, not a security boundary)
+- **`components/ui/`**: `Button.tsx`, `Input.tsx` — first reusable primitives, token-driven
+  styling, accessible (labels, aria-invalid, aria-describedby)
+- **Pages:** `/login`, `/forgot-password`, `/reset-password` (OTP flow), `/403`, `/dashboard`
+  (placeholder, demonstrates `RequireAuth`), `/` (redirects by auth status)
+- **Verified:** `tsc --noEmit` clean, `eslint` clean (0 warnings), full production build
+  succeeds — all 7 routes compile.
+
+### Not yet done (deliberately out of scope for Phase 1)
+- No role-specific dashboard shells yet (Admin/Teacher/Student/... ) — Phase 2
+- No Student/Teacher/Staff/Guardian profile CRUD yet — Phase 2 (User Management)
+- Email sending is currently a **logger stub** (`sendOtpEmail` in `auth.service.js` just logs
+  the OTP) — real SMTP/nodemailer wiring is part of the Communication module (Phase 12/13)
+- Live end-to-end DB test not run in this sandbox (network-restricted) — verify locally
+
+---
+
+## Next Up — Phase 2: User Management
+
+Per `06-user-management.md` + `28-roadmap.md`: User CRUD, Student/Teacher/Staff/Guardian
+profile creation flow (`Create User → Hash Password → Assign Role → Create Profile → Update
+User.profileId → Send Verification Email`), profile-type enforcement (one user, one profile),
+plus the frontend's role-based App Shell (Sidebar + Header + 10 dashboard shells) from
+`FRONTEND-WORKING-FLOW.md` §2.
+
+Relevant spec docs to re-read before starting: `06-user-management.md`,
+`school_erp_roles_and_dashboards.md`, `21-design-system.md`, `24-navigation-system.md`.

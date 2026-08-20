@@ -1,12 +1,14 @@
 import { Router } from "express";
 import ApiResponse from "../../shared/ApiResponse.js";
+import authRoutes from "../../modules/auth/auth.routes.js";
 
 const router = Router();
 
+router.use("/auth", authRoutes);
+
 // Health check for the v1 API surface.
-// Module routers (auth, user, student, teacher, ...) will be
+// Module routers (user, student, teacher, ...) will be
 // mounted here in later phases, e.g.:
-//   router.use("/auth", authRoutes);
 //   router.use("/students", studentRoutes);
 router.get("/health", (req, res) => {
   res

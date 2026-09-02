@@ -126,7 +126,7 @@ export const resendOtp = async ({ email, purpose }) => {
 
 /** POST /auth/login */
 export const loginUser = async ({ email, password }, req) => {
-  const user = await User.findOne({ email }).select("+password").populate("roleIds");
+  const user = await User.findOne({ email }).select("+password").populate({ path: "roleIds", populate: { path: "permissions" } });
 
   if (!user) {
     await logActivity(null, "LOGIN_FAILED", req, { email });
@@ -199,7 +199,7 @@ export const refreshAccessToken = async (refreshToken) => {
     throw ApiError.unauthorized("Refresh token mismatch. Please log in again.");
   }
 
-  const user = await User.findById(payload.sub).populate("roleIds");
+  const user = await User.findById(payload.sub).populate({ path: "roleIds", populate: { path: "permissions" } });
   if (!user || user.isDeleted || user.accountStatus !== "ACTIVE") {
     throw ApiError.unauthorized("Account no longer active.");
   }
@@ -314,15 +314,36 @@ export const changePassword = async (userId, { currentPassword, newPassword }) =
 };
 
 /** GET /auth/me */
-export const sanitizeUser = (user) => ({
-  id: user._id,
-  email: user.email,
-  roles: (user.roleIds || []).map((role) =>
-    typeof role === "object" ? { id: role._id, name: role.name, label: role.label } : role
-  ),
-  profileType: user.profileType,
-  profileId: user.profileId,
-  accountStatus: user.accountStatus,
-  emailVerified: user.emailVerified,
-  lastLogin: user.lastLogin,
-});
+export const sanitizeUser = (user) => {
+  const isSuperAdmin = (user.roleIds || []).some(
+    (role) => typeof role === "object" && role.name === "SUPER_ADMIN"
+  );
+
+  const permissions = isSuperAdmin
+    ? ["*"] // SUPER_ADMIN bypasses permission checks entirely (see authorize.middleware.js)
+    : Array.from(
+        new Set(
+          (user.roleIds || []).flatMap((role) =>
+            typeof role === "object" && Array.isArray(role.permissions)
+              ? role.permissions
+                  .map((p) => (typeof p === "object" ? p.key : null))
+                  .filter(Boolean)
+              : []
+          )
+        )
+      );
+
+  return {
+    id: user._id,
+    email: user.email,
+    roles: (user.roleIds || []).map((role) =>
+      typeof role === "object" ? { id: role._id, name: role.name, label: role.label } : role
+    ),
+    permissions,
+    profileType: user.profileType,
+    profileId: user.profileId,
+    accountStatus: user.accountStatus,
+    emailVerified: user.emailVerified,
+    lastLogin: user.lastLogin,
+  };
+};

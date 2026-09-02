@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import "../models.registry.js";
 import User from "../../modules/user/user.model.js";
 import Role from "../../modules/role/role.model.js";
 import databaseConfig from "../../config/database.js";

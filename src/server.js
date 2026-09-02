@@ -1,3 +1,7 @@
+// Must be imported first — registers every Mongoose schema before any
+// route, service, or populate() call can run. See models.registry.js for why.
+import "./database/models.registry.js";
+
 import app from "./app.js";
 import connectDatabase from "./database/connection.js";
 import serverConfig from "./config/server.js";

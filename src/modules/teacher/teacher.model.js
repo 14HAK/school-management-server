@@ -42,7 +42,7 @@ const teacherSchema = new mongoose.Schema(
     joiningDate: { type: Date, required: true, default: Date.now },
     academy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Campus",
+      ref: "Academy",
       default: null,
     },
     assignedSubjects: [

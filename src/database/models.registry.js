@@ -31,3 +31,4 @@ import "../modules/student/student.model.js";
 import "../modules/teacher/teacher.model.js";
 import "../modules/staff/staff.model.js";
 import "../modules/guardian/guardian.model.js";
+import "../modules/academy/academy.model.js";

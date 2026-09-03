@@ -6,6 +6,7 @@ import studentRoutes from "../../modules/student/student.routes.js";
 import teacherRoutes from "../../modules/teacher/teacher.routes.js";
 import staffRoutes from "../../modules/staff/staff.routes.js";
 import guardianRoutes from "../../modules/guardian/guardian.routes.js";
+import academyRoutes from "../../modules/academy/academy.routes.js";
 
 const router = Router();
 
@@ -15,9 +16,10 @@ router.use("/students", studentRoutes);
 router.use("/teachers", teacherRoutes);
 router.use("/staff", staffRoutes);
 router.use("/guardians", guardianRoutes);
+router.use("/academies", academyRoutes);
 
 // Health check for the v1 API surface.
-// Remaining module routers (campus, academic, routine, ...) will be
+// Remaining module routers (academic, routine, ...) will be
 // mounted here in later phases.
 router.get("/health", (req, res) => {
   res

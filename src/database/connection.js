@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 import databaseConfig from "../config/database.js";
 import logger from "../config/logger.js";
+// Registers every Mongoose schema before any query/populate can run.
+// Placed here (not just in server.js) so it's guaranteed regardless of
+// which entry point connects to the database — server.js, a seed script,
+// a one-off script, or tests. See models.registry.js for full explanation.
+import "./models.registry.js";
 
 const connectDatabase = async () => {
   try {

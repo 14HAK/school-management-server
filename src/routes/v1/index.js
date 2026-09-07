@@ -14,6 +14,8 @@ import groupRoutes from "../../modules/group/group.routes.js";
 import subjectRoutes from "../../modules/subject/subject.routes.js";
 import teacherAssignmentRoutes from "../../modules/teacher-assignment/teacherAssignment.routes.js";
 import studentEnrollmentRoutes from "../../modules/student-enrollment/studentEnrollment.routes.js";
+import periodRoutes from "../../modules/period/period.routes.js";
+import classRoutineRoutes from "../../modules/class-routine/classRoutine.routes.js";
 
 const router = Router();
 
@@ -31,9 +33,11 @@ router.use("/groups", groupRoutes);
 router.use("/subjects", subjectRoutes);
 router.use("/teacher-assignments", teacherAssignmentRoutes);
 router.use("/student-enrollments", studentEnrollmentRoutes);
+router.use("/periods", periodRoutes);
+router.use("/class-routines", classRoutineRoutes);
 
 // Health check for the v1 API surface.
-// Remaining module routers (routine, exam, finance, ...) will be
+// Remaining module routers (exam, finance, ...) will be
 // mounted here in later phases.
 router.get("/health", (req, res) => {
   res

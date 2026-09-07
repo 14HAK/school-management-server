@@ -39,3 +39,5 @@ import "../modules/group/group.model.js";
 import "../modules/subject/subject.model.js";
 import "../modules/teacher-assignment/teacherAssignment.model.js";
 import "../modules/student-enrollment/studentEnrollment.model.js";
+import "../modules/period/period.model.js";
+import "../modules/class-routine/classRoutine.model.js";

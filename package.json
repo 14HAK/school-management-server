@@ -11,7 +11,8 @@
     "seed:admin": "node src/database/seed/super-admin.seed.js",
     "seed:rooms": "node src/database/seed/room.seed.js",
     "seed:academic": "node src/database/seed/academic-structure.seed.js",
-    "seed": "yarn seed:roles && yarn seed:admin && yarn seed:rooms && yarn seed:academic",
+    "seed:periods": "node src/database/seed/period.seed.js",
+    "seed": "yarn seed:roles && yarn seed:admin && yarn seed:rooms && yarn seed:academic && yarn seed:periods",
     "test": "echo \"Tests not configured yet\" && exit 0"
   },
   "keywords": [

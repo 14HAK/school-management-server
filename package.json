@@ -10,7 +10,8 @@
     "seed:roles": "node src/database/seed/role-permission.seed.js",
     "seed:admin": "node src/database/seed/super-admin.seed.js",
     "seed:rooms": "node src/database/seed/room.seed.js",
-    "seed": "yarn seed:roles && yarn seed:admin && yarn seed:rooms",
+    "seed:academic": "node src/database/seed/academic-structure.seed.js",
+    "seed": "yarn seed:roles && yarn seed:admin && yarn seed:rooms && yarn seed:academic",
     "test": "echo \"Tests not configured yet\" && exit 0"
   },
   "keywords": [

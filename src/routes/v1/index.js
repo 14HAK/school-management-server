@@ -7,6 +7,13 @@ import teacherRoutes from "../../modules/teacher/teacher.routes.js";
 import staffRoutes from "../../modules/staff/staff.routes.js";
 import guardianRoutes from "../../modules/guardian/guardian.routes.js";
 import academyRoutes from "../../modules/academy/academy.routes.js";
+import academicYearRoutes from "../../modules/academic-year/academicYear.routes.js";
+import classRoutes from "../../modules/class/class.routes.js";
+import sectionRoutes from "../../modules/section/section.routes.js";
+import groupRoutes from "../../modules/group/group.routes.js";
+import subjectRoutes from "../../modules/subject/subject.routes.js";
+import teacherAssignmentRoutes from "../../modules/teacher-assignment/teacherAssignment.routes.js";
+import studentEnrollmentRoutes from "../../modules/student-enrollment/studentEnrollment.routes.js";
 
 const router = Router();
 
@@ -17,9 +24,16 @@ router.use("/teachers", teacherRoutes);
 router.use("/staff", staffRoutes);
 router.use("/guardians", guardianRoutes);
 router.use("/academies", academyRoutes);
+router.use("/academic-years", academicYearRoutes);
+router.use("/classes", classRoutes);
+router.use("/sections", sectionRoutes);
+router.use("/groups", groupRoutes);
+router.use("/subjects", subjectRoutes);
+router.use("/teacher-assignments", teacherAssignmentRoutes);
+router.use("/student-enrollments", studentEnrollmentRoutes);
 
 // Health check for the v1 API surface.
-// Remaining module routers (academic, routine, ...) will be
+// Remaining module routers (routine, exam, finance, ...) will be
 // mounted here in later phases.
 router.get("/health", (req, res) => {
   res

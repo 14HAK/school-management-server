@@ -16,6 +16,10 @@ import teacherAssignmentRoutes from "../../modules/teacher-assignment/teacherAss
 import studentEnrollmentRoutes from "../../modules/student-enrollment/studentEnrollment.routes.js";
 import periodRoutes from "../../modules/period/period.routes.js";
 import classRoutineRoutes from "../../modules/class-routine/classRoutine.routes.js";
+import examRoutes from "../../modules/exam/exam.routes.js";
+import examScheduleRoutes from "../../modules/exam-schedule/examSchedule.routes.js";
+import examMarkRoutes from "../../modules/exam-mark/examMark.routes.js";
+import examResultRoutes from "../../modules/exam-result/examResult.routes.js";
 
 const router = Router();
 
@@ -35,9 +39,13 @@ router.use("/teacher-assignments", teacherAssignmentRoutes);
 router.use("/student-enrollments", studentEnrollmentRoutes);
 router.use("/periods", periodRoutes);
 router.use("/class-routines", classRoutineRoutes);
+router.use("/exams", examRoutes);
+router.use("/exam-schedules", examScheduleRoutes);
+router.use("/exam-marks", examMarkRoutes);
+router.use("/exam-results", examResultRoutes);
 
 // Health check for the v1 API surface.
-// Remaining module routers (exam, finance, ...) will be
+// Remaining module routers (attendance, finance, ...) will be
 // mounted here in later phases.
 router.get("/health", (req, res) => {
   res

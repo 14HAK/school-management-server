@@ -41,3 +41,8 @@ import "../modules/teacher-assignment/teacherAssignment.model.js";
 import "../modules/student-enrollment/studentEnrollment.model.js";
 import "../modules/period/period.model.js";
 import "../modules/class-routine/classRoutine.model.js";
+import "../modules/exam/exam.model.js";
+import "../modules/exam-schedule/examSchedule.model.js";
+import "../modules/exam-schedule/examInvigilator.model.js";
+import "../modules/exam-mark/examMark.model.js";
+import "../modules/exam-result/examResult.model.js";

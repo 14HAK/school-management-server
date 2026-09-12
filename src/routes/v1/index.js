@@ -20,6 +20,10 @@ import examRoutes from "../../modules/exam/exam.routes.js";
 import examScheduleRoutes from "../../modules/exam-schedule/examSchedule.routes.js";
 import examMarkRoutes from "../../modules/exam-mark/examMark.routes.js";
 import examResultRoutes from "../../modules/exam-result/examResult.routes.js";
+import studentAttendanceRoutes from "../../modules/student-attendance/studentAttendance.routes.js";
+import teacherAttendanceRoutes from "../../modules/teacher-attendance/teacherAttendance.routes.js";
+import staffAttendanceRoutes from "../../modules/staff-attendance/staffAttendance.routes.js";
+import attendanceSummaryRoutes from "../../modules/attendance-summary/attendanceSummary.routes.js";
 
 const router = Router();
 
@@ -43,9 +47,13 @@ router.use("/exams", examRoutes);
 router.use("/exam-schedules", examScheduleRoutes);
 router.use("/exam-marks", examMarkRoutes);
 router.use("/exam-results", examResultRoutes);
+router.use("/student-attendances", studentAttendanceRoutes);
+router.use("/teacher-attendances", teacherAttendanceRoutes);
+router.use("/staff-attendances", staffAttendanceRoutes);
+router.use("/attendance-summary", attendanceSummaryRoutes);
 
 // Health check for the v1 API surface.
-// Remaining module routers (attendance, finance, ...) will be
+// Remaining module routers (finance, library, ...) will be
 // mounted here in later phases.
 router.get("/health", (req, res) => {
   res

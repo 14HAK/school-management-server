@@ -46,3 +46,6 @@ import "../modules/exam-schedule/examSchedule.model.js";
 import "../modules/exam-schedule/examInvigilator.model.js";
 import "../modules/exam-mark/examMark.model.js";
 import "../modules/exam-result/examResult.model.js";
+import "../modules/student-attendance/studentAttendance.model.js";
+import "../modules/teacher-attendance/teacherAttendance.model.js";
+import "../modules/staff-attendance/staffAttendance.model.js";

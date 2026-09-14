@@ -24,6 +24,15 @@ import studentAttendanceRoutes from "../../modules/student-attendance/studentAtt
 import teacherAttendanceRoutes from "../../modules/teacher-attendance/teacherAttendance.routes.js";
 import staffAttendanceRoutes from "../../modules/staff-attendance/staffAttendance.routes.js";
 import attendanceSummaryRoutes from "../../modules/attendance-summary/attendanceSummary.routes.js";
+import feeStructureRoutes from "../../modules/fee-structure/feeStructure.routes.js";
+import studentFeeRoutes from "../../modules/student-fee/studentFee.routes.js";
+import paymentRoutes from "../../modules/payment/payment.routes.js";
+import salaryStructureRoutes from "../../modules/salary-structure/salaryStructure.routes.js";
+import salaryPaymentRoutes from "../../modules/salary-payment/salaryPayment.routes.js";
+import expenseRoutes from "../../modules/expense/expense.routes.js";
+import transactionRoutes from "../../modules/transaction/transaction.routes.js";
+import receiptRoutes from "../../modules/receipt/receipt.routes.js";
+import invoiceRoutes from "../../modules/invoice/invoice.routes.js";
 
 const router = Router();
 
@@ -51,9 +60,18 @@ router.use("/student-attendances", studentAttendanceRoutes);
 router.use("/teacher-attendances", teacherAttendanceRoutes);
 router.use("/staff-attendances", staffAttendanceRoutes);
 router.use("/attendance-summary", attendanceSummaryRoutes);
+router.use("/fee-structures", feeStructureRoutes);
+router.use("/student-fees", studentFeeRoutes);
+router.use("/payments", paymentRoutes);
+router.use("/salary-structures", salaryStructureRoutes);
+router.use("/salary-payments", salaryPaymentRoutes);
+router.use("/expenses", expenseRoutes);
+router.use("/transactions", transactionRoutes);
+router.use("/receipts", receiptRoutes);
+router.use("/invoices", invoiceRoutes);
 
 // Health check for the v1 API surface.
-// Remaining module routers (finance, library, ...) will be
+// Remaining module routers (library, transport, hostel, ...) will be
 // mounted here in later phases.
 router.get("/health", (req, res) => {
   res

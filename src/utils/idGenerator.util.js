@@ -34,3 +34,15 @@ export const generateEmployeeId = async (type) => {
   const seq = await nextSequence(`employee-${type}-${year}`);
   return `EMP-${type}-${year}-${pad(seq)}`;
 };
+
+export const generateReceiptNumber = async () => {
+  const year = new Date().getFullYear();
+  const seq = await nextSequence(`receipt-${year}`);
+  return `RCPT-${year}-${pad(seq)}`;
+};
+
+export const generateInvoiceNumber = async () => {
+  const year = new Date().getFullYear();
+  const seq = await nextSequence(`invoice-${year}`);
+  return `INV-${year}-${pad(seq)}`;
+};
